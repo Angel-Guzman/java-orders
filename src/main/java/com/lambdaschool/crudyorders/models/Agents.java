@@ -22,6 +22,5 @@ public class Agents
     @OneToMany(mappedBy = "agents", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Customers> customers = new ArrayList<>();
 
-
-
+    // don't forget constructors, get/sets/tostr
 }

@@ -1,8 +1,6 @@
 package com.lambdaschool.crudyorders.models;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "orders")
@@ -14,8 +12,11 @@ public class Orders
     private double ordamount;
     private double advanceamount;
 
-    @Column(nullable = false)
-    private long custcode;
+    @ManyToOne
+    @JoinColumn(name = "custcode", nullable = false)
+    private Customers customers;
 
     private String orderdescription;
+
+
 }

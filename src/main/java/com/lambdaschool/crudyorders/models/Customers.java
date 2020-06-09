@@ -1,6 +1,8 @@
 package com.lambdaschool.crudyorders.models;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "customers")
@@ -26,6 +28,9 @@ public class Customers
     @ManyToOne
     @JoinColumn(name = "agentcode", nullable = false)
     private Agents agents;
+
+    @OneToMany(mappedBy = "customers", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Orders> orders = new ArrayList<>();
 
     public Customers()
     {
