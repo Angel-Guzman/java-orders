@@ -1,5 +1,7 @@
 package com.lambdaschool.crudyorders.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,7 +10,8 @@ import java.util.List;
 @Table(name = "orders")
 public class Orders
 {
-    @Column(nullable = false)
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long ordnum;
 
     private double ordamount;
@@ -16,14 +19,16 @@ public class Orders
 
     @ManyToOne
     @JoinColumn(name = "custcode", nullable = false)
+    @JsonIgnoreProperties(value = "orders")
     private Customers customers;
 
     private String orderdescription;
 
     @ManyToMany()
-    @JoinTable(name = "ordernum",
+    @JoinTable(name = "orderspayments",
             joinColumns = @JoinColumn(name = "ordnum"),
             inverseJoinColumns = @JoinColumn(name = "paymentid"))
+    @JsonIgnoreProperties(value = "orders")
     private List<Payments> payments = new ArrayList<>();
 
     public Orders()

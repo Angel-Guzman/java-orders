@@ -1,5 +1,7 @@
 package com.lambdaschool.crudyorders.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +19,7 @@ public class Customers
 
     private String custcity;
     private String workingarea;
+    private String custcountry;
     private String grade;
     private double openingamt;
     private double receiveamt;
@@ -26,20 +29,23 @@ public class Customers
 
     @ManyToOne
     @JoinColumn(name = "agentcode", nullable = false)
+    @JsonIgnoreProperties(value = "customers")
     private Agents agents;
 
     @OneToMany(mappedBy = "customers", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnoreProperties(value = "customers")
     private List<Orders> orders = new ArrayList<>();
 
     public Customers()
     {
     }
 
-    public Customers(String custname, String custcity, String workingarea, String grade, double openingamt, double receiveamt, double paymentamt, double outstandingamt, String phone, Agents agents)
+    public Customers(String custname, String custcity, String workingarea, String custcountry, String grade, double openingamt, double receiveamt, double paymentamt, double outstandingamt, String phone, Agents agents)
     {
         this.custname = custname;
         this.custcity = custcity;
         this.workingarea = workingarea;
+        this.custcountry = custcountry;
         this.grade = grade;
         this.openingamt = openingamt;
         this.receiveamt = receiveamt;
@@ -87,6 +93,16 @@ public class Customers
     public void setWorkingarea(String workingarea)
     {
         this.workingarea = workingarea;
+    }
+
+    public String getCustcountry()
+    {
+        return custcountry;
+    }
+
+    public void setCustcountry(String custcountry)
+    {
+        this.custcountry = custcountry;
     }
 
     public String getGrade()
@@ -159,6 +175,16 @@ public class Customers
         this.agents = agents;
     }
 
+    public List<Orders> getOrders()
+    {
+        return orders;
+    }
+
+    public void setOrders(List<Orders> orders)
+    {
+        this.orders = orders;
+    }
+
     @Override
     public String toString()
     {
@@ -167,6 +193,7 @@ public class Customers
                 ", custname='" + custname + '\'' +
                 ", custcity='" + custcity + '\'' +
                 ", workingarea='" + workingarea + '\'' +
+                ", custcountry='" + custcountry + '\'' +
                 ", grade='" + grade + '\'' +
                 ", openingamt=" + openingamt +
                 ", receiveamt=" + receiveamt +
@@ -174,6 +201,7 @@ public class Customers
                 ", outstandingamt=" + outstandingamt +
                 ", phone='" + phone + '\'' +
                 ", agents=" + agents +
+                ", orders=" + orders +
                 '}';
     }
 }
