@@ -19,15 +19,14 @@ public class CustomersController
     @Autowired
     private CustomersService customersService;
 
-    // http://localhost:2020/customers/customers
-    @GetMapping(value = "/customers", produces = {"application/json"})
+    // http://localhost:2020/customers/orders
+    @GetMapping(value = "/orders", produces = {"application/json"})
     public ResponseEntity<?> listAllCustomers()
     {
         List<Customers> myCustomers = customersService.findAllCustomers();
         return new ResponseEntity<>(myCustomers, HttpStatus.OK);
     }
 
-    // http://localhost:2020/customers/orders
 
     // http://localhost:2020/customers/customer/7
     // http://localhost:2020/customers/customer/77
@@ -37,7 +36,6 @@ public class CustomersController
         Customers c = customersService.findCustomerById(id);
         return new ResponseEntity<>(c, HttpStatus.OK);
     }
-
 
     // http://localhost:2020/customers/namelike/mes
     // http://localhost:2020/customers/namelike/cin
